@@ -33,6 +33,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
     - name: Build a Docker image
       run: docker build -t toshisnyk/snyk-juice-shop .
     - name: Run Snyk to check Docker image for vulnerabilities
