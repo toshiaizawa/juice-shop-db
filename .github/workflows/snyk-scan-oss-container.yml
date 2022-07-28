@@ -39,6 +39,12 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: monitor
+    - name: Run Snyk to check IaC files
+      uses: snyk/actions/iac@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --report
     - name: Build a Docker image
       run: docker build -t toshisnyk/snyk-juice-shop .
     - name: Run Snyk to check Docker image for vulnerabilities
